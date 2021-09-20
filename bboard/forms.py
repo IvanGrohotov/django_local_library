@@ -23,7 +23,7 @@ class BbForm(forms.ModelForm):#полное объявление всех пол
     rubric = forms.ModelChoiceField(queryset=Rubric.objects.all(),
             label='Рубрика', help_text='Не забудьте задать рубрику!',
             widget=forms.widgets.Select(attrs={'size': 8}))
-    captcha = CaptchaField()
+    #captcha = CaptchaField()
     
 
     def clean_title(self):#свой валидатор
