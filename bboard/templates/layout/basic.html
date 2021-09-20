@@ -1,0 +1,52 @@
+{% load static %}
+{% load bootstrap4 %}
+{% load cache %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type"
+        content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="{% static 'bboard/style.css' %}">
+        <title>{% block title %}Главная{% endblock %} - Доска объявлений</title>
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery='full' %}
+    </head>
+    <body>
+        <header>
+            <h1>Объявления</h1>
+        </header>
+        {% cache 300 navbar %}
+        <nav>
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'add' %}">Добавить</a>
+            <a href="{% url 'login' %}">Войти</a>
+            <a href="{% url 'social:begin' 'vk-oauth2' %}">Войти через ВКонтакте</a>
+            <a href="{% url 'logout' %}">Выйти</a>
+            <a href="{% url 'add_user' %}">Создать аккаунт</a>
+            <a href="{% url 'password_reset' %}">Восстановление</a>
+            <a href="{% url 'rubrics' %}">Рубрики</a>
+            <a href="{% url 'rubrics_formset' %}">Группа рубрики</a>
+            <a href="{% url 'add_img' %}">Добавить картинку</a>
+            <a href="{% url 'add_file' %}">Добавить файл</a>
+            <a href="{% url 'all_img' %}">Все картинки</a>
+            {% for rubric in rubrics %}
+            <a href="{{ rubric.get_absolute_url }}">{{ rubric.name }}</a>
+            {% endfor %}
+        </nav>
+        {% endcache %}
+        <section>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{message}}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% block content %}
+        {% endblock %}
+        </section>
+    </body>
+</html>

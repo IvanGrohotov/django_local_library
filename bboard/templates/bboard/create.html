@@ -1,0 +1,22 @@
+{% extends "layout/basic.html" %}
+{% load bootstrap4 %}
+
+{% block title %}Добавление объявления{% endblock %}
+
+{% block content %}
+<h2>Добавление объявления</h2>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' size='sm'%}
+    {% buttons submit='Добавить' %}{% endbuttons %}
+</form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{message}}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
