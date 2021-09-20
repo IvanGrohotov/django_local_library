@@ -106,7 +106,7 @@ class AdvUser(models.Model):#доп описание пользователя
     is_activated = models.BooleanField(default=True)#поле тру фолс
     user = models.OneToOneField(User, on_delete=models.CASCADE)#наследование один-содним
 
-class Spare(models.Model):
+'''class Spare(models.Model):
     name = models.CharField(max_length=40)
 
 class Machine(models.Model):
